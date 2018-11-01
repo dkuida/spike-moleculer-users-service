@@ -1,0 +1,15 @@
+node_modules/
+.jshintrc
+.gitignore
+.dockerignore
+.eslintrc
+.idea/
+.git/**/*
+LICENSE
+README.md
+swagger.yaml
+wallaby*
+Dockerfile
+spec/
+sync/
+config/
