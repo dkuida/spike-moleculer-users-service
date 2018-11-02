@@ -1,9 +1,8 @@
 'use strict';
 const USER_NUMBER = 10;
 const MAX_EXECUTION_COUNT = process.env.MAX_EXECUTION_COUNT || 2;
-const DIE_AFTER_CALLS = Math.floor(Math.random() * MAX_EXECUTION_COUNT) + 1;
+const DIE_AFTER_CALLS = MAX_EXECUTION_COUNT; //Math.floor(Math.random() * MAX_EXECUTION_COUNT) + 1;
 let overallCalls = 0;
-const {MoleculerError} = require('moleculer').Errors;
 module.exports = {
 	name: 'users',
 
