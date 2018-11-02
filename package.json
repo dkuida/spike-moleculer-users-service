@@ -17,7 +17,7 @@
     "moleculer-repl": "^0.5.0"
   },
   "dependencies": {
-    "@dkuida/logger-wrapper": "^1.4.9",
+    "@dkuida/logger-wrapper": "^1.4.11",
     "dotenv": "^6.1.0",
     "moleculer": "^0.13.0",
     "nats": "^1.0.0"

@@ -1,14 +1,16 @@
 'use strict';
 require('dotenv').config();
+const { extend } = require('moleculer').Logger;
+const logger = require('./bin/logger');
+const loggerConfig = require('./config/logger');
 module.exports = {
 	namespace: '',
 	nodeID: process.env.HOSTNAME || null,
 
-	logger: true,
+	logger: loggerConfig.local ? true : (bindings) => extend(logger(bindings)),
 	logLevel: 'info',
 	logFormatter: 'default',
 	logObjectPrinter: null,
-
 	transporter: {
 		type: 'NATS',
 		options: {

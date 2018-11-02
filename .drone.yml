@@ -1,0 +1,39 @@
+pipeline:
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+    - ./node_modules
+    volumes:
+    - /tmp/cache:/cache
+  build:
+    image: node:10.12.0
+    commands:
+    - npm install
+    - npm run lint
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    ttl: 7
+    mount:
+    - ./node_modules
+    volumes:
+    - /tmp/cache:/cache
+
+  publish_latest:
+    image: plugins/docker
+    repo: dkuida/spike-moleculer-users-service
+    secrets: [ docker_username, docker_password]
+    tags: latest
+    when:
+      branch: [develop]
+      event: [push, deployment]
+
+  publish_version:
+    image: plugins/docker
+    repo: dkuida/spike-moleculer-users-service
+    secrets: [ docker_username, docker_password ]
+    tags: "${DRONE_TAG}"
+    when:
+      event: tag
