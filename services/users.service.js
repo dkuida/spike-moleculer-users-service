@@ -1,5 +1,9 @@
 'use strict';
-const USER_NUMBER = 2;
+const USER_NUMBER = 10;
+const MAX_EXECUTION_COUNT = process.env.MAX_EXECUTION_COUNT || 2;
+const DIE_AFTER_CALLS = Math.floor(Math.random() * MAX_EXECUTION_COUNT) + 1;
+let overallCalls = 0;
+const {MoleculerError} = require('moleculer').Errors;
 module.exports = {
 	name: 'users',
 
@@ -8,22 +12,19 @@ module.exports = {
 
 
 	actions: {
-		list () {
+		async list (ctx) {
+			this.checkIfShouldKill(ctx);
 			const userIds = [...new Array(USER_NUMBER).keys()];
 			return userIds.map((id) => ({id, name: `user ${id}`}));
 		},
 		async posts (ctx) {
+			this.checkIfShouldKill(ctx);
 			const userIds = [...new Array(USER_NUMBER).keys()];
-			this.logger.info('posts started');
 			const postsPromises = userIds.map(async (id) => {
-				this.logger.info(`single post get call ${id}`);
 				const userPosts = await ctx.call('posts.userPosts', {userId: id});
-				this.logger.info(`single post return ${id} with posts ${JSON.stringify(userPosts)}`);
 				return ({id, name: `post ${id}`, posts: userPosts});
 			});
-			const users = await Promise.all(postsPromises);
-			this.logger.info('posts returns');
-			return users;
+			return await Promise.all(postsPromises);
 		}
 	},
 
@@ -32,8 +33,12 @@ module.exports = {
 
 
 	methods: {
-		allPosts (ctx) {
-
+		checkIfShouldKill (ctx) {
+			overallCalls++;
+			if (DIE_AFTER_CALLS > 0 && overallCalls >= DIE_AFTER_CALLS) {
+				this.logger.error(`killing service ${this.fullName} worker ${process.pid}`);
+				process.exit(-1)
+			}
 		}
 	},
 

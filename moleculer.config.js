@@ -1,8 +1,8 @@
 'use strict';
-
+require('dotenv').config();
 module.exports = {
 	namespace: '',
-	nodeID: null,
+	nodeID: process.env.HOSTNAME || null,
 
 	logger: true,
 	logLevel: 'info',
@@ -12,9 +12,9 @@ module.exports = {
 	transporter: {
 		type: 'NATS',
 		options: {
-			url: 'nats://localhost:31002',
-			user: 'nats_cluster',
-			pass: 'g5I0Zjf9Ig'
+			url: process.env.NATS_HOST,
+			user: process.env.NATS_USER,
+			pass: process.env.NATS_PASS
 		}
 	},
 
@@ -27,7 +27,7 @@ module.exports = {
 		delay: 100,
 		maxDelay: 1000,
 		factor: 2,
-		check: err => err && !!err.retryable
+		check: (err) => err && !!err.retryable
 	},
 
 	maxCallLevel: 100,
@@ -39,7 +39,7 @@ module.exports = {
 		shutdownTimeout: 5000
 	},
 
-	disableBalancer: false,
+	disableBalancer: true,
 
 	registry: {
 		strategy: 'RoundRobin',
@@ -47,12 +47,12 @@ module.exports = {
 	},
 
 	circuitBreaker: {
-		enabled: false,
+		enabled: true,
 		threshold: 0.5,
 		windowTime: 60,
 		minRequestCount: 20,
 		halfOpenTime: 10 * 1000,
-		check: err => err && err.code >= 500
+		check: (err) => err && err.code >= 500
 	},
 
 	bulkhead: {

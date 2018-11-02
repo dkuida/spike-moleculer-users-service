@@ -1,10 +1,10 @@
 {
   "name": "spike-moleculer-users-service",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "My Moleculer microservices project",
   "scripts": {
-    "dev": "moleculer-runner --repl --hot services",
-    "start": "moleculer-runner",
+    "dev": "moleculer-runner --repl --hot --instances=2 services",
+    "start": "node bin/runner.js",
     "lint": "eslint services"
   },
   "keywords": [
@@ -17,8 +17,10 @@
     "moleculer-repl": "^0.5.0"
   },
   "dependencies": {
-    "nats": "^1.0.0",
-    "moleculer": "^0.13.0"
+    "@dkuida/logger-wrapper": "^1.4.9",
+    "dotenv": "^6.1.0",
+    "moleculer": "^0.13.0",
+    "nats": "^1.0.0"
   },
   "engines": {
     "node": ">= 8.x.x"
