@@ -18,3 +18,5 @@ node_modules
 .DS_Store
 README.md
 LICENSE
+config/**/*
+config

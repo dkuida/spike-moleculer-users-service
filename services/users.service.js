@@ -35,7 +35,7 @@ module.exports = {
 		checkIfShouldKill (ctx) {
 			overallCalls++;
 			if (DIE_AFTER_CALLS > 0 && overallCalls >= DIE_AFTER_CALLS) {
-				this.logger.error(`killing service ${this.fullName} worker ${process.pid}`);
+				this.logger.error(`killing service ${this.fullName} worker ${process.pid} after ${overallCalls} calls`);
 				process.exit(-1)
 			}
 		}
