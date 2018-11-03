@@ -4,7 +4,7 @@
   "description": "My Moleculer microservices project",
   "scripts": {
     "dev": "moleculer-runner --repl --hot --instances=2 services",
-    "start": "moleculer-runner",
+    "start": "moleculer-runner services",
     "lint": "eslint services"
   },
   "keywords": [
