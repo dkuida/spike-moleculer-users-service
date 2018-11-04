@@ -1,7 +1,7 @@
 'use strict';
 const USER_NUMBER = 10;
 const MAX_EXECUTION_COUNT = process.env.MAX_EXECUTION_COUNT || 2;
-const DIE_AFTER_CALLS = Math.floor(Math.random() * MAX_EXECUTION_COUNT) + 1;
+const DIE_AFTER_CALLS = MAX_EXECUTION_COUNT;// Math.floor(Math.random() * MAX_EXECUTION_COUNT) + 1;
 let overallCalls = 0;
 module.exports = {
 	name: 'users',
@@ -36,7 +36,7 @@ module.exports = {
 			overallCalls++;
 			if (DIE_AFTER_CALLS > 0 && overallCalls >= DIE_AFTER_CALLS) {
 				this.logger.error(`killing service ${this.fullName} worker ${process.pid} after ${overallCalls} calls`);
-				await ctx.broker.destroyService(this);
+				// await ctx.broker.destroyService(this);
 				// await ctx.broker.stop();
 				process.exit(-1);
 			}
