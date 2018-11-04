@@ -1,6 +1,6 @@
 {
   "name": "spike-moleculer-users-service",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "My Moleculer microservices project",
   "scripts": {
     "dev": "moleculer-runner --repl --hot --instances=2 services",
