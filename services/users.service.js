@@ -36,8 +36,6 @@ module.exports = {
 			overallCalls++;
 			if (DIE_AFTER_CALLS > 0 && overallCalls >= DIE_AFTER_CALLS) {
 				this.logger.error(`killing service ${this.fullName} worker ${process.pid} after ${overallCalls} calls`);
-				// await ctx.broker.destroyService(this);
-				await ctx.broker.stop();
 				process.exit(-1);
 			}
 		}
